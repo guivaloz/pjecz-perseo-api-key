@@ -7,8 +7,8 @@ from typing import List
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from ..dependencies.database import Base
-from ..dependencies.universal_mixin import UniversalMixin
+from pjecz_perseo_api_key.dependencies.database import Base
+from pjecz_perseo_api_key.dependencies.universal_mixin import UniversalMixin
 
 
 class Autoridad(Base, UniversalMixin):

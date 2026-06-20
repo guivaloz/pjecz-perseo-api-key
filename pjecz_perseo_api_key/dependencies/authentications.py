@@ -13,10 +13,10 @@ from sqlalchemy.orm import Session
 from starlette.status import HTTP_403_FORBIDDEN
 from unidecode import unidecode
 
-from ..models.usuarios import Usuario
-from ..schemas.usuarios import UsuarioInDB
-from .database import get_db
-from .exceptions import MyAuthenticationError
+from pjecz_perseo_api_key.dependencies.database import get_db
+from pjecz_perseo_api_key.dependencies.exceptions import MyAuthenticationError
+from pjecz_perseo_api_key.models.usuarios import Usuario
+from pjecz_perseo_api_key.schemas.usuarios import UsuarioInDB
 
 API_KEY_REGEXP = r"^\w+\.\w+\.\w+$"
 X_API_KEY = APIKeyHeader(name="X-Api-Key")
@@ -47,10 +47,10 @@ def get_user(
             puesto=usuario.puesto,
             username=usuario.email,
             permissions=usuario.permissions,
-            hashed_password=usuario.contrasena,
+            hashed_password=usuario.contrasena if usuario.contrasena else "",
             disabled=usuario.estatus != "A",
-            api_key=usuario.api_key,
-            api_key_expiracion=usuario.api_key_expiracion,
+            api_key=usuario.api_key if usuario.api_key else "",
+            api_key_expiracion=usuario.api_key_expiracion if usuario.api_key_expiracion else datetime.min,
         )
     return None
 

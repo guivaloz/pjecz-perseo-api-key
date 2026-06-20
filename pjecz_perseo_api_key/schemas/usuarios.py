@@ -6,8 +6,6 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict
 
-from ..dependencies.schemas_base import OneBaseOut
-
 
 class UsuarioOut(BaseModel):
     """Esquema para entregar usuarios"""
@@ -30,9 +28,11 @@ class UsuarioOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class OneUsuarioOut(OneBaseOut):
+class OneUsuarioOut(BaseModel):
     """Esquema para entregar un usuario"""
 
+    success: bool
+    message: str
     data: UsuarioOut | None = None
 
 

@@ -6,22 +6,22 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_pagination import add_pagination
 
-from .routers.autoridades import autoridades
-from .routers.bitacoras import bitacoras
-from .routers.distritos import distritos
-from .routers.entradas_salidas import entradas_salidas
-from .routers.modulos import modulos
-from .routers.nominas import nominas
-from .routers.permisos import permisos
-from .routers.personas import personas
-from .routers.puestos import puestos
-from .routers.roles import roles
-from .routers.tabuladores import tabuladores
-from .routers.tareas import tareas
-from .routers.timbrados import timbrados
-from .routers.usuarios import usuarios
-from .routers.usuarios_roles import usuarios_roles
-from .settings import get_settings
+from pjecz_perseo_api_key.config.settings import get_settings
+from pjecz_perseo_api_key.routers.autoridades import autoridades
+from pjecz_perseo_api_key.routers.bitacoras import bitacoras
+from pjecz_perseo_api_key.routers.distritos import distritos
+from pjecz_perseo_api_key.routers.entradas_salidas import entradas_salidas
+from pjecz_perseo_api_key.routers.modulos import modulos
+from pjecz_perseo_api_key.routers.nominas import nominas
+from pjecz_perseo_api_key.routers.permisos import permisos
+from pjecz_perseo_api_key.routers.personas import personas
+from pjecz_perseo_api_key.routers.puestos import puestos
+from pjecz_perseo_api_key.routers.roles import roles
+from pjecz_perseo_api_key.routers.tabuladores import tabuladores
+from pjecz_perseo_api_key.routers.tareas import tareas
+from pjecz_perseo_api_key.routers.timbrados import timbrados
+from pjecz_perseo_api_key.routers.usuarios import usuarios
+from pjecz_perseo_api_key.routers.usuarios_roles import usuarios_roles
 
 # FastAPI
 app = FastAPI(

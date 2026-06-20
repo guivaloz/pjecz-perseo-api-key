@@ -6,8 +6,6 @@ from datetime import date
 
 from pydantic import BaseModel, ConfigDict
 
-from ..dependencies.schemas_base import OneBaseOut
-
 
 class PersonaOut(BaseModel):
     """Esquema para entregar personas"""
@@ -30,7 +28,9 @@ class PersonaOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class OnePersonaOut(OneBaseOut):
+class OnePersonaOut(BaseModel):
     """Esquema para entregar una persona"""
 
+    success: bool
+    message: str
     data: PersonaOut | None = None

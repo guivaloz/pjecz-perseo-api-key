@@ -4,8 +4,6 @@ Tareas v4, esquemas de pydantic
 
 from pydantic import BaseModel, ConfigDict
 
-from ..dependencies.schemas_base import OneBaseOut
-
 
 class TareaOut(BaseModel):
     """Esquema para entregar tareas"""
@@ -19,7 +17,9 @@ class TareaOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class OneTareaOut(OneBaseOut):
+class OneTareaOut(BaseModel):
     """Esquema para entregar un tarea"""
 
+    success: bool
+    message: str
     data: TareaOut | None = None

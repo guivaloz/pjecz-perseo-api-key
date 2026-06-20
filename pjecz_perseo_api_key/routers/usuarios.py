@@ -6,16 +6,16 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_pagination.ext.sqlalchemy import paginate
-from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
+from sqlalchemy.exc import MultipleResultsFound, NoResultFound
 
-from ..dependencies.authentications import UsuarioInDB, get_current_active_user
-from ..dependencies.database import Session, get_db
-from ..dependencies.fastapi_pagination_custom_page import CustomPage
-from ..dependencies.safe_string import safe_clave, safe_email, safe_string
-from ..models.autoridades import Autoridad
-from ..models.permisos import Permiso
-from ..models.usuarios import Usuario
-from ..schemas.usuarios import OneUsuarioOut, UsuarioOut
+from pjecz_perseo_api_key.dependencies.authentications import UsuarioInDB, get_current_active_user
+from pjecz_perseo_api_key.dependencies.database import Session, get_db
+from pjecz_perseo_api_key.dependencies.fastapi_pagination_custom_page import CustomPage
+from pjecz_perseo_api_key.dependencies.safe_string import safe_clave, safe_email, safe_string
+from pjecz_perseo_api_key.models.autoridades import Autoridad
+from pjecz_perseo_api_key.models.permisos import Permiso
+from pjecz_perseo_api_key.models.usuarios import Usuario
+from pjecz_perseo_api_key.schemas.usuarios import OneUsuarioOut, UsuarioOut
 
 usuarios = APIRouter(prefix="/api/v5/usuarios", tags=["usuarios"])
 
@@ -35,7 +35,7 @@ async def detalle_usuario(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No es válido el e-mail")
     try:
         usuario = database.query(Usuario).filter_by(email=email).one()
-    except (MultipleResultsFound, NoResultFound):
+    except MultipleResultsFound, NoResultFound:
         return OneUsuarioOut(success=False, message="No existe ese usuario")
     if usuario.estatus != "A":
         return OneUsuarioOut(success=False, message="No está habilitado ese usuario")
@@ -46,11 +46,11 @@ async def detalle_usuario(
 async def paginado_usuarios(
     current_user: Annotated[UsuarioInDB, Depends(get_current_active_user)],
     database: Annotated[Session, Depends(get_db)],
-    apellido_primero: str = None,
-    apellido_segundo: str = None,
-    autoridad_clave: str = None,
-    email: str = None,
-    nombres: str = None,
+    apellido_primero: str | None = None,
+    apellido_segundo: str | None = None,
+    autoridad_clave: str | None = None,
+    email: str | None = None,
+    nombres: str | None = None,
 ):
     """Paginado de usuarios"""
     if current_user.permissions.get("USUARIOS", 0) < Permiso.VER:

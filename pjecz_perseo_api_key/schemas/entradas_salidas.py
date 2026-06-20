@@ -4,8 +4,6 @@ Entradas-Salidas v4, esquemas de pydantic
 
 from pydantic import BaseModel, ConfigDict
 
-from ..dependencies.schemas_base import OneBaseOut
-
 
 class EntradaSalidaOut(BaseModel):
     """Esquema para entregar entradas-salidas"""
@@ -17,7 +15,9 @@ class EntradaSalidaOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class OneEntradaSalidaOut(OneBaseOut):
+class OneEntradaSalidaOut(BaseModel):
     """Esquema para entregar una entrada-salida"""
 
+    success: bool
+    message: str
     data: EntradaSalidaOut | None = None

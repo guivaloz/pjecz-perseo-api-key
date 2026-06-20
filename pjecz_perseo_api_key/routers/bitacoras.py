@@ -7,15 +7,15 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_pagination.ext.sqlalchemy import paginate
 
-from ..dependencies.authentications import UsuarioInDB, get_current_active_user
-from ..dependencies.database import Session, get_db
-from ..dependencies.fastapi_pagination_custom_page import CustomPage
-from ..dependencies.safe_string import safe_email
-from ..models.bitacoras import Bitacora
-from ..models.modulos import Modulo
-from ..models.permisos import Permiso
-from ..models.usuarios import Usuario
-from ..schemas.bitacoras import BitacoraOut
+from pjecz_perseo_api_key.dependencies.authentications import UsuarioInDB, get_current_active_user
+from pjecz_perseo_api_key.dependencies.database import Session, get_db
+from pjecz_perseo_api_key.dependencies.fastapi_pagination_custom_page import CustomPage
+from pjecz_perseo_api_key.dependencies.safe_string import safe_email
+from pjecz_perseo_api_key.models.bitacoras import Bitacora
+from pjecz_perseo_api_key.models.modulos import Modulo
+from pjecz_perseo_api_key.models.permisos import Permiso
+from pjecz_perseo_api_key.models.usuarios import Usuario
+from pjecz_perseo_api_key.schemas.bitacoras import BitacoraOut
 
 bitacoras = APIRouter(prefix="/api/v5/bitacoras", tags=["usuarios"])
 
@@ -24,8 +24,8 @@ bitacoras = APIRouter(prefix="/api/v5/bitacoras", tags=["usuarios"])
 async def paginado_bitacoras(
     current_user: Annotated[UsuarioInDB, Depends(get_current_active_user)],
     database: Annotated[Session, Depends(get_db)],
-    modulo_id: int = None,
-    email: str = None,
+    modulo_id: int | None = None,
+    email: str | None = None,
 ):
     """Paginado de bitácoras"""
     if current_user.permissions.get("BITACORAS", 0) < Permiso.VER:

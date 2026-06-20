@@ -7,12 +7,12 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_pagination.ext.sqlalchemy import paginate
 
-from ..dependencies.authentications import UsuarioInDB, get_current_active_user
-from ..dependencies.database import Session, get_db
-from ..dependencies.fastapi_pagination_custom_page import CustomPage
-from ..models.permisos import Permiso
-from ..models.puestos import Puesto
-from ..schemas.puestos import PuestoOut
+from pjecz_perseo_api_key.dependencies.authentications import UsuarioInDB, get_current_active_user
+from pjecz_perseo_api_key.dependencies.database import Session, get_db
+from pjecz_perseo_api_key.dependencies.fastapi_pagination_custom_page import CustomPage
+from pjecz_perseo_api_key.models.permisos import Permiso
+from pjecz_perseo_api_key.models.puestos import Puesto
+from pjecz_perseo_api_key.schemas.puestos import PuestoOut
 
 puestos = APIRouter(prefix="/api/v5/puestos", tags=["puestos"])
 

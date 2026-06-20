@@ -4,8 +4,6 @@ Bitacoras v4, esquemas de pydantic
 
 from pydantic import BaseModel, ConfigDict
 
-from ..dependencies.schemas_base import OneBaseOut
-
 
 class BitacoraOut(BaseModel):
     """Esquema para entregar bitácoras"""
@@ -18,7 +16,9 @@ class BitacoraOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class OneBitacoraOut(OneBaseOut):
+class OneBitacoraOut(BaseModel):
     """Esquema para entregar una bitácora"""
 
+    success: bool
+    message: str
     data: BitacoraOut | None = None
